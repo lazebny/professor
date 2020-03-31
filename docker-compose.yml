@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  app:
+    container_name: professor_app
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/professor
+      - bundle_cache:/bundle_cache
+    depends_on:
+      - postgres
+      # - webpacker
+    env_file:
+      - '.env.local'
+  # webpacker:
+  #   container_name: professor_webpack
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.local
+  #   command: ./bin/webpack-dev-server
+  #   ports:
+  #     - '3055:3055'
+  #   volumes:
+  #     - .:/professor
+  #     - bundle_cache:/bundle_cache
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     NODE_ENV: development
+  #     WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+  postgres:
+    container_name: professor_postgres
+    image: postgres:11.0
+volumes:
+  bundle_cache:
