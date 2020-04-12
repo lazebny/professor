@@ -1,6 +1,7 @@
 class AnswerRegexp < ApplicationRecord
   belongs_to :question
 
+  has_many :answer_examples, through: :question
   has_many :test_questions, through: :question
   has_many :answers, through: :test_questions
 
@@ -10,6 +11,7 @@ class AnswerRegexp < ApplicationRecord
     include_fields \
       :regexp,
       :question,
+      :answer_examples,
       :answers
   end
 end

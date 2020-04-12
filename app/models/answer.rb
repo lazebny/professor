@@ -17,7 +17,7 @@ class Answer < ApplicationRecord
   end
 
   def rails_admin_default_object_label_method
-    "#{test_question.rails_admin_default_object_label_method} (#{correct? ? '+' : '-'})"
+    "#{body} (#{correct? ? '+' : '-'})"
   end
 
   def correct?
