@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_204900) do
+ActiveRecord::Schema.define(version: 2020_04_12_204900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,9 @@ ActiveRecord::Schema.define(version: 2020_03_31_204900) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "test_question_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["test_question_id"], name: "index_answers_on_test_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
@@ -90,7 +92,6 @@ ActiveRecord::Schema.define(version: 2020_03_31_204900) do
   end
 
   create_table "tests", force: :cascade do |t|
-    t.string "name"
     t.integer "score"
     t.bigint "revision_id"
     t.bigint "user_id"
@@ -119,6 +120,7 @@ ActiveRecord::Schema.define(version: 2020_03_31_204900) do
   add_foreign_key "answer_examples", "questions"
   add_foreign_key "answer_regexps", "questions"
   add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "test_questions"
   add_foreign_key "answers", "users"
   add_foreign_key "group_revisions", "groups"
   add_foreign_key "group_revisions", "revisions"
