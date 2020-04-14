@@ -21,7 +21,6 @@ class Answer < ApplicationRecord
   end
 
   def correct?
-    answer_regexps = test_question.question.answer_regexps
-    answer_regexps.any? { |answer_regexp| body.match(answer_regexp.regexp) }
+    ::CheckAnswer.call(test_question.question, self)
   end
 end

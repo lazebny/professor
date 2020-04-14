@@ -10,8 +10,7 @@ class AnswerExample < ApplicationRecord
   end
 
   def correct?
-    answer_regexps = question.answer_regexps
-    answer_regexps.any? { |answer_regexp| body.match(answer_regexp.regexp) }
+    ::CheckAnswer.call(question, self)
   end
 
   def rails_admin_default_object_label_method
